@@ -5,27 +5,20 @@ import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
-import android.support.v7.widget.Toolbar;
 import android.util.Log;
-import android.view.View;
-
-import com.google.android.gms.maps.GoogleMap;
-import com.google.android.gms.maps.OnMapReadyCallback;
-import com.google.android.gms.maps.SupportMapFragment;
 
 import io.proximi.proximiiolibrary.ProximiioAPI;
-import io.proximi.proximiiolibrary.ProximiioFloor;
 import io.proximi.proximiiolibrary.ProximiioGeofence;
-import io.proximi.proximiiolibrary.ProximiioGoogleMapHelper;
 import io.proximi.proximiiolibrary.ProximiioListener;
+import io.proximi.proximiiomap.ProximiioMapHelper;
+import io.proximi.proximiiomap.ProximiioMapView;
 
 /**
  * Proximiio Demo
  */
-public class MainActivity extends AppCompatActivity implements OnMapReadyCallback {
+public class MainActivity extends AppCompatActivity {
     private ProximiioAPI proximiioAPI;
-    @Nullable private ProximiioGoogleMapHelper mapHelper;
-    private Toolbar toolbar;
+    private ProximiioMapHelper mapHelper;
 
     private static final String TAG = "ProximiioDemo";
 
@@ -57,69 +50,66 @@ public class MainActivity extends AppCompatActivity implements OnMapReadyCallbac
         proximiioAPI.setAuth(AUTH);
         proximiioAPI.setActivity(this);
 
-        // Set toolbar buttons to change the current floor up and down
-        findViewById(R.id.floorUp).setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                if (mapHelper != null) {
-                    mapHelper.floorUp();
-                }
-            }
-        });
-        findViewById(R.id.floorDown).setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                if (mapHelper != null) {
-                    mapHelper.floorDown();
-                }
-            }
-        });
-
-        // Set the toolbar title
-        toolbar = (Toolbar) findViewById(R.id.toolbar);
-        toolbar.setTitle(TAG);
-
         // Initialize the map
-        SupportMapFragment mapFragment = (SupportMapFragment) getSupportFragmentManager().findFragmentById(R.id.map);
-        mapFragment.getMapAsync(this);
+        ProximiioMapView mapView = (ProximiioMapView)findViewById(R.id.map);
+        mapHelper = new ProximiioMapHelper.Builder(this, mapView, AUTH, savedInstanceState)
+                .build();
     }
+
+    @Override
+    protected void onStart() {
+        super.onStart();
+        mapHelper.onStart();
+    }
+
+    @Override
+    protected void onResume() {
+        super.onResume();
+        mapHelper.onResume();
+    }
+
+    @Override
+    protected void onPause() {
+        super.onPause();
+        mapHelper.onPause();
+    }
+
+    @Override
+    protected void onStop() {
+        super.onStop();
+        mapHelper.onStop();
+    }
+
 
     @Override
     protected void onDestroy() {
         super.onDestroy();
-        if (mapHelper != null) {
-            mapHelper.destroy();
-        }
+        mapHelper.onDestroy();
         proximiioAPI.destroy();
+    }
+
+    @Override
+    public void onSaveInstanceState(Bundle outState) {
+        super.onSaveInstanceState(outState);
+        mapHelper.onSaveInstanceState(outState);
+    }
+
+    @Override
+    public void onLowMemory() {
+        super.onLowMemory();
+        mapHelper.onLowMemory();
     }
 
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
         proximiioAPI.onActivityResult(requestCode, resultCode, data);
+        mapHelper.onActivityResult(requestCode, resultCode, data);
     }
 
     @Override
     public void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions, @NonNull int[] grantResults) {
         super.onRequestPermissionsResult(requestCode, permissions, grantResults);
         proximiioAPI.onRequestPermissionsResult(requestCode, permissions, grantResults);
-    }
-
-    // Called when the map is ready to use
-    @Override
-    public void onMapReady(GoogleMap googleMap) {
-        mapHelper = new ProximiioGoogleMapHelper.Builder(this, googleMap)
-                .listener(new ProximiioGoogleMapHelper.Listener() {
-                    @Override
-                    public void changedFloor(@Nullable ProximiioFloor floor) {
-                        toolbar.setTitle(floor != null ? floor.getName() : TAG);
-                    }
-                }).build();
-
-        googleMap.setOnMyLocationButtonClickListener(mapHelper);
-        googleMap.setOnMapClickListener(mapHelper);
-        googleMap.setOnCameraIdleListener(mapHelper);
-        googleMap.setOnMarkerClickListener(mapHelper);
-        googleMap.setOnCameraMoveStartedListener(mapHelper);
     }
 }
