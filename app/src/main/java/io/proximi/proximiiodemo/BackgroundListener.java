@@ -18,6 +18,9 @@ import io.proximi.proximiiolibrary.ProximiioAPI;
 public class BackgroundListener extends BroadcastReceiver {
     private static final String TAG = "BackgroundListener";
 
+    public static final String NOTIFICATION_CHANNEL_ID = "io.proximi.proximiiodemo";
+    public static final String NOTIFICATION_CHANNEL_NAME = "Proximi.io Demo Notifications";
+
     @Override
     public void onReceive(Context context, Intent intent) {
         if (intent.getAction() != null) {
@@ -25,6 +28,13 @@ public class BackgroundListener extends BroadcastReceiver {
                 case ProximiioAPI.ACTION_POSITION:
                     Log.d(TAG, "Position: " + intent.getDoubleExtra(ProximiioAPI.EXTRA_LAT, 0) + ", " + intent.getDoubleExtra(ProximiioAPI.EXTRA_LON, 0));
                     break;
+                // Please note that remote notifications through Proximi.io is purely for demo purposes.
+                // If you are looking for a remote notification system to use, please look into a system
+                // that's built to handle notifications specifically;
+                // they offer far more features, are easier to use, and are more robust for that.
+                // Some examples include:
+                //     - Firebase Cloud Messaging (https://firebase.google.com/docs/cloud-messaging/)
+                //     - OneSignal (https://onesignal.com/)
                 case ProximiioAPI.ACTION_OUTPUT:
                     JSONObject json = null;
                     try {
@@ -55,7 +65,7 @@ public class BackgroundListener extends BroadcastReceiver {
 
                                 PendingIntent contentIntent = PendingIntent.getActivity(context, 0, intent2, PendingIntent.FLAG_CANCEL_CURRENT);
 
-                                NotificationCompat.Builder notificationBuilder = new NotificationCompat.Builder(context)
+                                NotificationCompat.Builder notificationBuilder = new NotificationCompat.Builder(context, NOTIFICATION_CHANNEL_ID)
                                         .setContentIntent(contentIntent)
                                         .setSmallIcon(R.drawable.notification)
                                         .setContentTitle(title);
@@ -74,7 +84,7 @@ public class BackgroundListener extends BroadcastReceiver {
                     break;
                 case Intent.ACTION_BOOT_COMPLETED:
                     Log.d(TAG, "Phone booted!");
-                    ProximiioAPI proximiioAPI = new ProximiioAPI("BackgroundReceiver", context);
+                    ProximiioAPI proximiioAPI = new ProximiioAPI("BackgroundReceiver", context, null);
                     proximiioAPI.setAuth(MainActivity.AUTH);
                     proximiioAPI.destroy();
                     break;

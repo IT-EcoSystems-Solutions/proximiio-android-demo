@@ -1,15 +1,15 @@
 apply plugin: 'com.android.application'
 
 android {
-    compileSdkVersion 25
-    buildToolsVersion "25.0.3"
+    compileSdkVersion 27
+    buildToolsVersion "27.0.3"
 
     defaultConfig {
         applicationId "io.proximi.proximiiodemo"
         minSdkVersion 15
-        targetSdkVersion 25
-        versionCode 2
-        versionName "1.1"
+        targetSdkVersion 27
+        versionCode 3
+        versionName "1.2"
         multiDexEnabled true
     }
     buildTypes {
@@ -40,11 +40,11 @@ repositories {
 }
 
 dependencies {
-    compile fileTree(dir: 'libs', include: ['*.jar'])
-    testCompile 'junit:junit:4.12'
-    compile 'com.android.support:appcompat-v7:25.4.0'
-    compile 'com.android.support:design:25.4.0'
-    compile 'io.proximi.proximiiolibrary:proximiiolibrary:2.6.5'
-    compile 'io.proximi.proximiiolibrary:proximiiomap:0.3'
-    compile 'com.android.support:multidex:1.0.1'
+    implementation fileTree(dir: 'libs', include: ['*.jar'])
+    testImplementation 'junit:junit:4.12'
+    implementation 'com.android.support:appcompat-v7:27.0.2'
+    implementation 'com.android.support:design:27.0.2'
+    implementation 'io.proximi.proximiiolibrary:proximiiolibrary:2.7'
+    implementation 'io.proximi.proximiiolibrary:proximiiomap:0.4'
+    implementation 'com.android.support:multidex:1.0.1'
 }

@@ -1,6 +1,11 @@
 package io.proximi.proximiiodemo;
 
+import android.app.NotificationChannel;
+import android.app.NotificationManager;
+import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
+import android.os.Build;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.v7.app.AppCompatActivity;
@@ -10,6 +15,7 @@ import android.util.Log;
 import io.proximi.proximiiolibrary.ProximiioAPI;
 import io.proximi.proximiiolibrary.ProximiioGeofence;
 import io.proximi.proximiiolibrary.ProximiioListener;
+import io.proximi.proximiiolibrary.ProximiioOptions;
 import io.proximi.proximiiomap.ProximiioMapHelper;
 import io.proximi.proximiiomap.ProximiioMapView;
 
@@ -29,8 +35,28 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
+        // For Android 8+, create a notification channel for notifications.
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
+            SharedPreferences preferences = getSharedPreferences("Proximi.io Map Demo", MODE_PRIVATE);
+            if (!preferences.contains("notificationChannel")) {
+                NotificationManager notificationManager = (NotificationManager) getSystemService(Context.NOTIFICATION_SERVICE);
+                if (notificationManager != null) {
+                    NotificationChannel channel = new NotificationChannel(BackgroundListener.NOTIFICATION_CHANNEL_ID,
+                                                                          BackgroundListener.NOTIFICATION_CHANNEL_NAME,
+                                                                          NotificationManager.IMPORTANCE_HIGH);
+                    notificationManager.createNotificationChannel(channel);
+                    preferences.edit()
+                            .putBoolean("notificationChannel", true)
+                            .apply();
+                }
+            }
+        }
+
+        ProximiioOptions options = new ProximiioOptions()
+                .setNotificationMode(ProximiioOptions.NotificationMode.ENABLED);
+
         // Create our Proximi.io listener
-        proximiioAPI = new ProximiioAPI(TAG, this);
+        proximiioAPI = new ProximiioAPI(TAG, this, options);
         proximiioAPI.setListener(new ProximiioListener() {
             @Override
             public void geofenceEnter(ProximiioGeofence geofence) {
@@ -51,7 +77,7 @@ public class MainActivity extends AppCompatActivity {
         proximiioAPI.setActivity(this);
 
         // Initialize the map
-        ProximiioMapView mapView = (ProximiioMapView)findViewById(R.id.map);
+        ProximiioMapView mapView = findViewById(R.id.map);
         mapHelper = new ProximiioMapHelper.Builder(this, mapView, AUTH, savedInstanceState)
                 .build();
     }
