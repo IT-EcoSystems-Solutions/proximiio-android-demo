@@ -85,6 +85,7 @@ public class MainActivity extends AppCompatActivity {
     @Override
     protected void onStart() {
         super.onStart();
+        proximiioAPI.onStart();
         mapHelper.onStart();
     }
 
@@ -103,6 +104,7 @@ public class MainActivity extends AppCompatActivity {
     @Override
     protected void onStop() {
         super.onStop();
+        proximiioAPI.onStop();
         mapHelper.onStop();
     }
 
