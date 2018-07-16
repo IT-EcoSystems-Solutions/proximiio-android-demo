@@ -78,7 +78,7 @@ public class MainActivity extends AppCompatActivity {
 
         // Initialize the map
         ProximiioMapView mapView = findViewById(R.id.map);
-        mapHelper = new ProximiioMapHelper.Builder(this, mapView, AUTH, savedInstanceState)
+        mapHelper = new ProximiioMapHelper.Builder(TAG, this, mapView, AUTH, savedInstanceState)
                 .build();
     }
 
