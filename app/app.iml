@@ -110,7 +110,8 @@
     <orderEntry type="sourceFolder" forTests="false" />
     <orderEntry type="library" name="Gradle: com.android.support:support-v4-27.1.1" level="project" />
     <orderEntry type="library" name="Gradle: com.google.android.gms:play-services-basement-15.0.1" level="project" />
-    <orderEntry type="library" name="Gradle: io.proximi.proximiiolibrary:proximiiomap-0.5.0" level="project" />
+    <orderEntry type="library" name="Gradle: io.proximi.proximiiolibrary:proximiiomap-0.5.1" level="project" />
+    <orderEntry type="library" name="Gradle: io.proximi.proximiiolibrary:proximiiolibrary-2.7.5" level="project" />
     <orderEntry type="library" name="Gradle: com.android.support:recyclerview-v7-27.1.1" level="project" />
     <orderEntry type="library" name="Gradle: com.android.support:support-media-compat-27.1.1" level="project" />
     <orderEntry type="library" name="Gradle: com.android.support:multidex-1.0.3" level="project" />
@@ -129,7 +130,6 @@
     <orderEntry type="library" scope="TEST" name="Gradle: com.android.support:multidex-instrumentation-1.0.2" level="project" />
     <orderEntry type="library" name="Gradle: com.android.support:appcompat-v7-27.1.1" level="project" />
     <orderEntry type="library" name="Gradle: com.indooratlas.android:indooratlas-android-sdk-2.7.0" level="project" />
-    <orderEntry type="library" name="Gradle: io.proximi.proximiiolibrary:proximiiolibrary-2.7.4" level="project" />
     <orderEntry type="library" name="Gradle: com.google.android.gms:play-services-tasks-15.0.1" level="project" />
     <orderEntry type="library" name="Gradle: com.google.android.gms:play-services-places-placereport-15.0.1" level="project" />
     <orderEntry type="library" name="Gradle: com.google.maps.android:android-maps-utils-0.5" level="project" />
