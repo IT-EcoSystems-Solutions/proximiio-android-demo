@@ -7,7 +7,7 @@ import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.Intent;
 import android.os.Build;
-import android.support.v4.app.NotificationCompat;
+import androidx.core.app.NotificationCompat;
 import android.util.Log;
 
 import org.json.JSONException;
@@ -85,7 +85,7 @@ public class BackgroundListener extends BroadcastReceiver {
                 case Intent.ACTION_BOOT_COMPLETED:
                     Log.d(TAG, "Phone booted!");
                     ProximiioAPI proximiioAPI = new ProximiioAPI("BackgroundReceiver", context, null);
-                    proximiioAPI.setAuth(MainActivity.AUTH);
+                    proximiioAPI.setAuth(MainActivity.AUTH, true);
                     proximiioAPI.destroy();
                     break;
             }

@@ -1,13 +1,13 @@
 apply plugin: 'com.android.application'
 
 android {
-    compileSdkVersion 27
-    buildToolsVersion "27.0.3"
+    compileSdkVersion 28
+    buildToolsVersion "28.0.3"
 
     defaultConfig {
         applicationId "io.proximi.proximiiodemo"
         minSdkVersion 15
-        targetSdkVersion 27
+        targetSdkVersion 28
         versionCode 3
         versionName "1.2"
         multiDexEnabled true
@@ -22,8 +22,8 @@ android {
         exclude 'META-INF/LICENSE'
         exclude 'META-INF/LICENSE-FIREBASE.txt'
         exclude 'META-INF/NOTICE'
-        exclude 'lib/mips/libmapbox-gl.so'
-        exclude 'lib/mips/libexample-custom-layer.so'
+        exclude 'lib/armeabi/libcpaJNI.so'
+        exclude 'lib/armeabi/libsqlcipher.so'
     }
     compileOptions {
         sourceCompatibility JavaVersion.VERSION_1_8
@@ -46,9 +46,9 @@ repositories {
 dependencies {
     implementation fileTree(dir: 'libs', include: ['*.jar'])
     testImplementation 'junit:junit:4.12'
-    implementation 'com.android.support:appcompat-v7:27.1.1'
-    implementation 'com.android.support:design:27.1.1'
-    implementation 'io.proximi.proximiiolibrary:proximiiolibrary:2.7.6'
-    implementation 'io.proximi.proximiiolibrary:proximiiomap:0.5.1'
-    implementation 'com.android.support:multidex:1.0.3'
+    implementation 'androidx.appcompat:appcompat:1.0.0'
+    implementation 'com.google.android.material:material:1.0.0'
+    implementation 'io.proximi.proximiiolibrary:proximiiolibrary:2.8.0'
+    implementation 'io.proximi.proximiiolibrary:proximiiomap:0.6.0'
+    implementation 'androidx.multidex:multidex:2.0.0'
 }
