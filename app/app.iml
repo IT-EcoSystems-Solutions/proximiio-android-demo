@@ -202,7 +202,7 @@
     <orderEntry type="library" name="Gradle: androidx.annotation:annotation:1.0.0@jar" level="project" />
     <orderEntry type="library" name="Gradle: com.scottyab:secure-preferences-lib-0.1.4" level="project" />
     <orderEntry type="library" name="Gradle: androidx.vectordrawable:vectordrawable-animated-1.0.0" level="project" />
-    <orderEntry type="library" name="Gradle: io.proximi.proximiiolibrary:proximiiolibrary-2.8.0" level="project" />
+    <orderEntry type="library" name="Gradle: io.proximi.proximiiolibrary:proximiiolibrary-2.8.1" level="project" />
     <orderEntry type="library" name="Gradle: com.mapbox.mapboxsdk:mapbox-sdk-core:3.4.1@jar" level="project" />
     <orderEntry type="library" name="Gradle: com.fasterxml.jackson.core:jackson-databind:2.2.2@jar" level="project" />
     <orderEntry type="library" name="Gradle: com.squareup.picasso:picasso:2.5.2@jar" level="project" />
